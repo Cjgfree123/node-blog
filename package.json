@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "serve": "nodemon start server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +31,8 @@
     "mongoose": "^5.7.1",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
+    "nodemon": "^1.19.2",
+    "pm2": "^3.5.1",
     "serve-favicon": "^2.5.0"
   }
 }
