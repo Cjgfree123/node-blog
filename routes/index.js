@@ -5,7 +5,10 @@ let router = express.Router();
 
 // /  [get]
 router.get("/", function(req, res){
-    res.send("首页");
+    // 路由是相对路径，相对于模板根目录
+    res.render("index",{
+        title: "首页"
+    });
 });
 
 module.exports = router;
