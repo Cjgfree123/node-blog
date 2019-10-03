@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%=title%></title>
-    <link rel="stylesheet" href="../../public/lib/bootstrap/dist/css/bootstrap.css"></link>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    </link>
 </head>
 
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-head">
-            <a href="" class="navbar-brand">我的博客</a>
+    <nav class="navbar navbar-default" style="background: rgba(0,0,0,.7);">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">我的博客</a>
+            </div>
+            <div>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a href="/">首页</a>
+                    </li>&nbsp;
+                    <li class="nav-item">
+                        <a href="/user/signup">注册</a>
+                    </li>&nbsp;
+                    <li class="nav-item">
+                        <a href="/user/signin">登录</a>
+                    </li>&nbsp;
+                    <li class="nav-item">
+                        <a href="/user/signout">退出</a>
+                    </li>&nbsp;
+                    <li class="nav-item">
+                        <a href="/article/add">发表文章</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div>
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/">首页</a>
-                </li>
-                <li>
-                    <a href="/user/signup">注册</a>
-                </li>
-                <li>
-                    <a href="/user/signin">登录</a>
-                </li>
-                <li>
-                    <a href="/user/signout">退出</a>
-                </li>
-                <li>
-                    <a href="/article/add">发表文章</a>
-                </li>
+    </nav>
 
-            </ul>
-        </div>
+    <div class="container">
     </div>
-</nav>
-
-<div class="container">

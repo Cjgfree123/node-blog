@@ -10,7 +10,7 @@ app.set("views", path.resolve("views"));
 app.engine("html", require("ejs").__express);
 
 // 拦截请求，返回对应目录的静态文件。如果能找到，则返回客户端并结束请求。
-app.use(express.static(path.resolve("node_modules")));
+app.use(express.static(path.resolve("public")));
 
 let index = require("./routes/index");
 app.use("/", index);
