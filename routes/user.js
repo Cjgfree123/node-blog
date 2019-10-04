@@ -1,5 +1,6 @@
 let express = require("express");
-let { User } = require("../model");
+let { User } = require("../model/index.js");
+console.log("uuu", User)
 
 // 调用Router方法，可以得到一个路由中间件实例
 let router = express.Router();
@@ -12,16 +13,11 @@ router.get("/signup", function(req, res){
 });
 
 // /user/signup  [post]
-router.post("/signup", function(req, res){
-   console.log("......提交注册", req);
-   let user = req.body; // 请求体对象(username,password, email)
-   User.create(user, function(err, doc){
-        if(err){
-            res.redirect("back");
-        }else{
-            res.redirect("/user/signin");
-        }
-    });
+router.post("/signup",async function(req, res){
+   let body = req.body; // 请求体对象(username,password, email)
+   let user = new User(body);
+   await user.save();
+   res.redirect("/user/signin");
 });
 
 // /user/signin  [get]

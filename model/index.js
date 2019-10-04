@@ -1,8 +1,11 @@
 let mongoose = require('mongoose');
-// 连接数据库
-mongoose.createConnection("mongodb://127.0.0.1:27017");
-// mongoose.connect("mongodb://localhost:27017"); // 备注: 端口可以省略
-// 定义了用户集合的骨架模型, 规定了用户集合中的 文档和类型
+
+mongoose.connect("mongodb://127.0.0.1:27017").then(() => {
+    console.log('MongoDB is connected');
+}).catch(err => {
+    console.log('MongoDB connection unsuccessful, retry after 5 seconds.')
+});
+
 let UserSchema = new mongoose.Schema({
     username: String,
     password: String,
