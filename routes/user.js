@@ -30,6 +30,23 @@ router.get("/signin", function(req, res){
         title:"登录",
     })
 });
+
+// /user/signin  [post]
+router.post("/signin", function(req, res){
+    let user = req.body;
+    User.findOne(user, function(err, doc){
+        if(err){
+            res.redirect("back");
+        }else{
+            if(doc){
+                res.redirect("/");
+            }else{
+                res.redirect("back");
+            };
+        };
+    });
+});
+
 // /user/signup  [get]
 router.get("/signout", function(req, res){
     res.render("user/signout", {
