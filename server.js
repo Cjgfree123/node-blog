@@ -1,5 +1,6 @@
 let express = require("express");
 let path = require("path");
+let bodyParser = require("body-parser");
 let app = express();
 
 // 模板文件夹下的后缀，必须以html结尾
@@ -8,6 +9,9 @@ app.set("view engine","html");
 app.set("views", path.resolve("views"));
 // 指定对于html类型的模板, 使用ejs来进行渲染。
 app.engine("html", require("ejs").__express);
+app.use(bodyParser.urlencoded({
+    extended: true,
+})); // 解析客户端提交过来的请求体, 并转成对象，赋值给req.body
 
 // 拦截请求，返回对应目录的静态文件。如果能找到，则返回客户端并结束请求。
 app.use(express.static(path.resolve("public")));
