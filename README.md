@@ -187,3 +187,34 @@ app.use(function(req, res, next){
     4. 模板可以直接展示(注意: user有值再展示)
 
 10. 路由中间件, 可以添加多个。
+    
+    静态资源路径, 也可以配置多个(常见: public node_modules)。
+
+11. 顺序
+
+    1. 建模
+
+    ```
+    let UserSchema = new mongoose.Schema({
+        
+    })
+    ```
+
+    2. 构造表(类)
+    
+    ```
+    let User = mongoose.model("表名字", UserSchema)
+    ```
+
+    3. 实例化
+     
+    ```
+    let body = req.body;
+    body.user = req.session.user._id;
+    let user = new User(body);
+    user.save();
+    ```
+
+12. 在model里新建模型, 小火箭不展示
+
+解决: 重启小火箭。
