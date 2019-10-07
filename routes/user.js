@@ -1,6 +1,6 @@
 let express = require("express");
 let { User } = require("../model/index.js");
-console.log("uuu", User)
+// console.log("uuu", User)
 
 // 调用Router方法，可以得到一个路由中间件实例
 let router = express.Router();
@@ -34,9 +34,11 @@ router.post("/signin", function(req, res){
         if(err){
             res.redirect("back");
         }else{
+            // 登陆成功了,有对应用户
             if(doc){
                 res.redirect("/");
             }else{
+                // 没有找到对应用户
                 res.redirect("back");
             };
         };
