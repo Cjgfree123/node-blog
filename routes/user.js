@@ -5,7 +5,7 @@ let { User } = require("../model/index.js");
 // 调用Router方法，可以得到一个路由中间件实例
 let router = express.Router();
 
-// /user/signup  [get]
+// /user/signup  [get] 
 router.get("/signup", function(req, res){
     res.render("user/signup", {
         title:"注册",
@@ -29,6 +29,7 @@ router.get("/signin", function(req, res){
 
 // /user/signin  [post]
 router.post("/signin", function(req, res){
+    // 得到用户提交的登录表单
     let user = req.body;
     User.findOne(user, function(err, doc){
         if(err){
@@ -36,6 +37,8 @@ router.post("/signin", function(req, res){
         }else{
             // 登陆成功了,有对应用户
             if(doc){
+                // 向会话对象中写入属性 user=doc
+                req.session.user = doc;
                 res.redirect("/");
             }else{
                 // 没有找到对应用户

@@ -12,6 +12,14 @@ node 搭建个人博客
 
 ## 路由描述
 
+## session 
+
+(1) 存储回话 (2)根据登录态, 控制页面是否展示
+
+登录前: 首页 注册  登录
+
+登陆后: 退出 发表文章
+
 #### 用户
 
 注册: /user/signup
@@ -52,3 +60,35 @@ let User = mongoose.model("User", UserSchema);
 exports.User = User;
 
 ```
+
+3. 会话中间件(例如express-session)等中间件，必须在app.use("路径")装载路由前进行使用, 否则路由将无法使用上中间件。
+
+```
+// 在使用了此会话中间件之后，会在请求对象上,增加req.session属性。
+app.use(session({
+    resave: false, // 每次客户端请求到服务器，都会保存session
+    secret: "zfpx", // 用来加密cookie
+    saveUninitialized: true, // 保存未初始化的session(即不管客户端是否使用, 服务端都将返回session)。
+}));
+
+app.use(function(req, res, next){
+    console.log("公共变量", req.session.user);
+    // 真正渲染模板的是 res.locals
+    res.locals.user = req.session.user;
+    next();
+})
+```
+
+4. ejs模板报错, esc is not function.(通常是模板错误，建议删除二分调试法)
+
+5. 在首页路由里, 定义了user变量。 但是: 因为每个页面都用到了导航条，总不能每个路由都定义user 的session变量。
+ 所以, 寻找一种 一次定义user变量, 全局路由可以使用的方法。 
+ 解决: 
+    * 路由中间件。
+    * 取到session变量 req.session.user
+    * 模板的数据对象 res.local.user
+
+6. 模板渲染数据
+
+    * 全局通用 res.local.user
+    * 局部 res.render("模板名", data); // 优先级更高

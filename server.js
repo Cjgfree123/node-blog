@@ -1,6 +1,8 @@
 let express = require("express");
 let path = require("path");
 let bodyParser = require("body-parser");
+// 会话中间件
+let session = require("express-session");
 let app = express();
 
 // 模板文件夹下的后缀，必须以html结尾
@@ -16,6 +18,20 @@ app.use(bodyParser.urlencoded({
 // 拦截请求，返回对应目录的静态文件。如果能找到，则返回客户端并结束请求。
 app.use(express.static(path.resolve("public")));
 
+// 在使用了此会话中间件之后，会在请求对象上,增加req.session属性。
+app.use(session({
+    resave: false, // 每次客户端请求到服务器，都会保存session
+    secret: "zfpx", // 用来加密cookie
+    saveUninitialized: true, // 保存未初始化的session(即不管客户端是否使用, 服务端都将返回session)。
+}));
+
+app.use(function(req, res, next){
+    console.log("公共变量", req.session.user);
+    // 真正渲染模板的是 res.locals
+    res.locals.user = req.session.user;
+    next();
+})
+
 let index = require("./routes/index");
 app.use("/", index);
 
@@ -30,3 +46,4 @@ app.use("/article", article);
 app.listen(8080,()=>{
     console.log("port at 8080");
 });
+

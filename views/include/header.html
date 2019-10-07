@@ -21,18 +21,22 @@
                     <li class="nav-item">
                         <a href="/">首页</a>
                     </li>&nbsp;
-                    <li class="nav-item">
-                        <a href="/user/signup">注册</a>
-                    </li>&nbsp;
-                    <li class="nav-item">
-                        <a href="/user/signin">登录</a>
-                    </li>&nbsp;
+
+                    <%if(user){%>
                     <li class="nav-item">
                         <a href="/user/signout">退出</a>
                     </li>&nbsp;
                     <li class="nav-item">
                         <a href="/article/add">发表文章</a>
                     </li>
+                    <%}else{%>
+                    <li class="nav-item">
+                        <a href="/user/signup">注册</a>
+                    </li>&nbsp;
+                    <li class="nav-item">
+                        <a href="/user/signin">登录</a>
+                    </li>&nbsp;
+                    <%}%>      
                 </ul>
             </div>
         </div>
