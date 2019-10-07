@@ -17,6 +17,7 @@
                 <a href="/" class="navbar-brand">我的博客</a>
             </div>
             <div>
+                <!-- 导航栏 -->
                 <ul class="nav">
                     <li class="nav-item">
                         <a href="/">首页</a>
@@ -38,6 +39,17 @@
                     </li>&nbsp;
                     <%}%>      
                 </ul>
+
+                <!-- 表单 -->
+                <form class="navbar-form navbar-left" role="search"  action="/">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="keyword" placeholder="请输入关键字" value="<%=keyword%>">
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        搜索
+                    </button>
+                </form>
+
                 <!-- 头像 -->
                 <%if(user){%>
                     <ul class="nav nav-right">
