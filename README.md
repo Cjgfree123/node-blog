@@ -225,3 +225,4 @@ app.use(function(req, res, next){
 
 * 文章表 ref = User表
 * populate("user").exec(()=>{})  与 article.user相结合
+    * populate: 填充。可以将一个字段从字符串，转化成对象。

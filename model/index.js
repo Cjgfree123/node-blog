@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+mongoose.Promise = Promise;
 // monogoose自己声明的
 let ObjectId = mongoose.Schema.Types.ObjectId;
 
