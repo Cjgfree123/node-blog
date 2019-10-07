@@ -3,6 +3,8 @@ let path = require("path");
 let bodyParser = require("body-parser");
 // 会话中间件
 let session = require("express-session");
+// 消息提示中间件(一闪而过)
+let flash = require("connect-flash");
 
 let app = express();
 
@@ -26,10 +28,16 @@ app.use(session({
     saveUninitialized: true, // 保存未初始化的session(即不管客户端是否使用, 服务端都将返回session)。
 }));
 
+// 切记! 此中间件的使用，主要放在session的后面, 因为此中间件是需要依赖session的。
+app.use(flash());
+
 app.use(function(req, res, next){
     console.log("公共变量", req.session.user);
     // 真正渲染模板的是 res.locals
     res.locals.user = req.session.user;
+    // 定义消息
+    res.locals.success = req.flash("success").toString();
+    res.locals.error = req.flash("error").toString();
     next();
 });
 

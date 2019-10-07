@@ -15,6 +15,34 @@ node 搭建个人博客
 5. 权限路由(保护需要登陆后, 才能访问的路径)
     * 登录状态判断中间件
 
+6. 成功和失败时的消息提示(先声明并使用flash, 再全局定义成功失败模板, 最后路由中间件全局挂载res.locals)
+
+    1. connect-flash 消息提示中间件
+
+    使用说明:
+
+    ```
+    let flash = require("connect-flash");
+
+    app.use(flash());
+    ```
+
+    2. 注意: 该中间件依赖于session,必须先 app.use(session),再 app.use(flash);
+
+    3. 赋值 req.flash(type, msg)
+       取值 req.flash(type)
+
+       type: error/success
+
+    4. 如果连写多个, 存放取出都是数组
+
+    ```
+    req.flash("success","用户登录成功1");
+    req.flash("success","用户登录成功2");
+    ```
+
+    5. 功能: 读完一次之后, 会立即清空数据。(一开始展示,刷新后清空对应数据)
+
 ## 路由描述
 
 ## session 
@@ -124,3 +152,18 @@ app.use(function(req, res, next){
     };
 
     ```
+
+7. 报错req.flash没有定义
+
+解决: 先挂载，再使用.
+
+```
+app.use(flash());
+
+app.use(function(req, res, next){
+    // ...
+    res.locals.success = req.flash("success").toString();
+    res.locals.error = req.flash("error").toString();
+    next();
+});
+```
