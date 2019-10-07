@@ -117,6 +117,8 @@ app.use(function(req, res, next){
 
 4. ejs模板报错, esc is not function.(通常是模板错误，建议删除二分调试法)
 
+ejs: 写js逻辑,不加=;  写变量, 加=
+
 5. 在首页路由里, 定义了user变量。 但是: 因为每个页面都用到了导航条，总不能每个路由都定义user 的session变量。
  所以, 寻找一种 一次定义user变量, 全局路由可以使用的方法。 
  解决: 
@@ -218,3 +220,8 @@ app.use(function(req, res, next){
 12. 在model里新建模型, 小火箭不展示
 
 解决: 重启小火箭。
+
+13. 如何在 文章页面，展示: 作者信息?
+
+* 文章表 ref = User表
+* populate("user").exec(()=>{})  与 article.user相结合
