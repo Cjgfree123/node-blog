@@ -5,6 +5,7 @@ let bodyParser = require("body-parser");
 let session = require("express-session");
 // 消息提示中间件(一闪而过)
 let flash = require("connect-flash");
+let multer = require("multer");
 
 let app = express();
 
@@ -26,6 +27,9 @@ app.use(session({
     resave: false, // 每次客户端请求到服务器，都会保存session
     secret: "zfpx", // 用来加密cookie
     saveUninitialized: true, // 保存未初始化的session(即不管客户端是否使用, 服务端都将返回session)。
+    cookie: {
+        maxAge: 3600 * 1000, // 指定cookie过期时间1小时(单位: 毫秒)
+    }
 }));
 
 // 切记! 此中间件的使用，主要放在session的后面, 因为此中间件是需要依赖session的。

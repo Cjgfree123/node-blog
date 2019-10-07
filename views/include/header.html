@@ -38,6 +38,17 @@
                     </li>&nbsp;
                     <%}%>      
                 </ul>
+                <!-- 头像 -->
+                <%if(user){%>
+                    <ul class="nav nav-right">
+                        <li>
+                            <a href="">
+                                <img src="<%=user.avatar%>" alt="" style="width: 40px;height: 40px;border-radius: 50%;"/>
+                                <%=user.username%>
+                            </a>
+                        </li>
+                    </ul>
+                <%}%>
             </div>
         </div>
     </nav>

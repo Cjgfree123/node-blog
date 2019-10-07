@@ -10,6 +10,7 @@ let UserSchema = new mongoose.Schema({
     username: String,
     password: String,
     email: String,
+    avatar: String,
 });
 // 定义用户模型,
 let User = mongoose.model("User", UserSchema);

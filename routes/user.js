@@ -1,4 +1,10 @@
 let express = require("express");
+
+let multer = require("multer");
+let uploads = multer({
+    dest: "public/uploads", // 自定义上传服务器的路径 localhost:8080/uploads/b5fb0837dacc2576a02d7b8aeee9e0ae
+});
+
 let { User } = require("../model/index.js");
 let { checkLogin, checkNotLogin } = require("../auth.js");
 
@@ -13,18 +19,23 @@ router.get("/signup", checkNotLogin, function (req, res) {
 });
 
 // /user/signup  [post]
-router.post("/signup", checkNotLogin, async function (req, res) {
+// 当表单里, 只有一个上传字段的话, 这个字段名(avatar)将是上传文件字段的name属性
+router.post("/signup", checkNotLogin, uploads.single("avatar"), async function (req, res) {
+    console.log("img", req.file);
+    console.log("text", req.body);
     let body = req.body; // 请求体对象(username,password, email)
+    // 因为已经将: public作为静态文件根目录,所以这里从public下开始
+    body.avatar = `/uploads/${req.file.filename}`; // 数据库要有avatar字段
     let user = new User(body);
     let result = await user.save();
     if (result) {
         // 注册成功
         res.redirect("/user/signin");
-        res.flash("success","用户注册成功");
+        req.flash("success","用户注册成功");
     } else {
         // 注册失败
         res.redirect("back");
-        res.flash("error","用户注册失败");
+        req.flash("error","用户注册失败");
     };
 });
 

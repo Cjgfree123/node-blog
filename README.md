@@ -167,3 +167,23 @@ app.use(function(req, res, next){
     next();
 });
 ```
+
+注意: 因为 req.flash原理类似于请求会话session,即: res.flash("error","用户注册失败");会报错。  解决: req.flash("error","用户注册失败");
+
+8. 请求文件类型说明
+
+* 上传文件、图片时, 需要定义: enctype="multipart/form-data"。
+    1. 处理文件/图片的中间件: multer.(备注: multer 仅仅用来处理文件类型: multipart/form-data)
+    2. multer 将会把图片资源(input file)挂载在req.file上, 将文本(input text)挂载在req.body上。
+
+* 普通: enctype="application/x-www-form-urlencoded"。
+
+9. 上传图片步骤
+
+    1. 上传表单(需要定义表单文件类型enctype)
+    2. 安装引入multer, 自定义图片上传路径
+        * ps: 当表单里, 只有一个上传字段的话, 这个字段名将是上传文件字段的name属性
+    3. 将上传后的图片地址, 存到数据库对应字段中
+    4. 模板可以直接展示(注意: user有值再展示)
+
+10. 路由中间件, 可以添加多个。
