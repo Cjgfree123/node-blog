@@ -45,4 +45,18 @@ router.get("/detail/:_id", function(req, res){
     });
 });
 
+router.get("/delete/:_id", function(req, res){
+    let _id = req.params._id;
+    console.log("删除id", _id)
+    Article.remove({_id}, function(err, result){
+        if(err){
+            req.flash("error", err);
+            res.redirect("back");
+        }else{
+            req.flash("success","删除文章成功");
+            res.redirect("/");
+        };
+    },);
+})
+
 module.exports = router;
