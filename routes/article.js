@@ -1,4 +1,5 @@
 let express = require("express");
+let { checkLogin} = require("../auth.js");
 
 // 调用Router方法，可以得到一个路由中间件实例
 let router = express.Router();

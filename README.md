@@ -10,11 +10,19 @@ node 搭建个人博客
 
 3. 设置路由
 
+4. session
+
+5. 权限路由(保护需要登陆后, 才能访问的路径)
+    * 登录状态判断中间件
+
 ## 路由描述
 
 ## session 
 
-(1) 存储回话 (2)根据登录态, 控制页面是否展示
+(1) 存储回话
+(2) 根据登录态, 控制页面是否展示
+(3) 通过session,在每次用户登录时, 访问的都是 同一块内存
+(4) 退出登录时, 要清除掉session,并重定向到 登录页。
 
 登录前: 首页 注册  登录
 
@@ -90,5 +98,29 @@ app.use(function(req, res, next){
 
 6. 模板渲染数据
 
-    * 全局通用 res.local.user
+    * 全局通用 res.local.user(user说明:模板中使用的变量名)
     * 局部 res.render("模板名", data); // 优先级更高
+
+7. 如何判断权限路由?
+
+   使用路由中间件
+
+    * 如何使用? 
+
+    ```
+    // checkNotLogin: 路由校验函数
+    router.get("/signin", checkNotLogin, function(req, res){
+        // ................
+    });
+
+    exports.checkNotLogin = function(req,res, next){
+        if(req.session.user){
+            // 已登录, 跳回首页
+            res.redirect("/");
+        }else{
+            // 未登录, 继续访问
+            next();
+        };
+    };
+
+    ```

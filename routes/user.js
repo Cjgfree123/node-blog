@@ -1,12 +1,12 @@
 let express = require("express");
 let { User } = require("../model/index.js");
-// console.log("uuu", User)
+let { checkLogin, checkNotLogin } = require("../auth.js");
 
 // 调用Router方法，可以得到一个路由中间件实例
 let router = express.Router();
 
 // /user/signup  [get] 
-router.get("/signup", function(req, res){
+router.get("/signup", checkNotLogin, function(req, res){
     res.render("user/signup", {
         title:"注册",
     })
@@ -21,7 +21,7 @@ router.post("/signup",async function(req, res){
 });
 
 // /user/signin  [get]
-router.get("/signin", function(req, res){
+router.get("/signin", checkNotLogin, function(req, res){
     res.render("user/signin", {
         title:"登录",
     })
@@ -49,7 +49,9 @@ router.post("/signin", function(req, res){
 });
 
 // /user/signup  [get]
-router.get("/signout", function(req, res){
+router.get("/signout", checkLogin, function(req, res){
+    req.session.user = null;
+    res.redirect("/user/signin");
     res.render("user/signout", {
         title:"退出",
     })

@@ -3,6 +3,7 @@ let path = require("path");
 let bodyParser = require("body-parser");
 // 会话中间件
 let session = require("express-session");
+
 let app = express();
 
 // 模板文件夹下的后缀，必须以html结尾
@@ -30,7 +31,7 @@ app.use(function(req, res, next){
     // 真正渲染模板的是 res.locals
     res.locals.user = req.session.user;
     next();
-})
+});
 
 let index = require("./routes/index");
 app.use("/", index);
