@@ -4842,6 +4842,14 @@ input[type="button"].btn-block {
   border-radius: 0.25rem;
 }
 
+.pagination li{
+  width: 25px;
+  height: 25px;
+  border: 1px solid #333;
+  text-align: center;
+  line-height: 25px;
+}
+
 .page-link {
   position: relative;
   display: block;

@@ -6,7 +6,7 @@ let session = require("express-session");
 // 消息提示中间件(一闪而过)
 let flash = require("connect-flash");
 let multer = require("multer");
-let MongoStore = require('connect-mongostore')(session);
+let MongoStore = require('connect-mongo')(session);
 let app = express();
 
 // 模板文件夹下的后缀，必须以html结尾

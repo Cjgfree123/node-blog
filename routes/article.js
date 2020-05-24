@@ -16,7 +16,8 @@ router.get("/add", checkLogin, function (req, res) {
 // 路由路径，前面有/
 router.post("/add", checkLogin, async function (req, res) {
     let body = req.body;
-    body.user = req.session.user._id; // 作者是当前的登录用户
+    // req.session.user: 获取到的是个列表
+    body.user = req.session.user && req.session.user.length ? req.session.user[0] && req.session.user[0] : {}; // 作者是当前的登录用户
     let article = new Article(body);
     try {
         await article.save();
@@ -45,6 +46,7 @@ router.get("/detail/:_id", function(req, res){
     });
 });
 
+// 删除某篇文章
 router.get("/delete/:_id", function(req, res){
     let _id = req.params._id;
     console.log("删除id", _id)

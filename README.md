@@ -2,6 +2,41 @@
 
 node 搭建个人博客
 
+## 路由与结构
+
+**路由**
+
+/
+    |_ / :query参数(pageNum, pageSize, keyWord)。 作用: 进行标题关键字查询, 返回符合条件的、按照时间倒排的数组(关联user表)。
+
+/user
+    |_ /signup:
+        get: 获取注册表单页面。(checkNotLogin)
+        post: 进行注册页面。(checkNotLogin)
+
+    |_ /signin:
+        get: 获取登录表单页面。
+        post: 提交登录。
+
+    |_ /signout:
+        get: 退出登录。（checkLogin）
+
+/article
+    |_ /add:
+        get: 获取发表文章页面。(checkLogin)
+        post: 使用当前用户(req.session.user._id)，提交发表的文章。(checkLogin)
+    
+    |_ /detail/:_id
+        get: 获取文章详情。
+
+    |_ /delete/:_id
+        get: 删除某篇文章。
+
+
+**结构**
+
+    前端html文件 -> node服务器(路由、session与持久化、启动服务) -> mongodb(user / article表)
+
 ## 步骤
 
 1. 创建项目
@@ -54,9 +89,9 @@ node 搭建个人博客
 (3) 通过session,在每次用户登录时, 访问的都是 同一块内存
 (4) 退出登录时, 要清除掉session,并重定向到 登录页。
 
-登录前: 首页 注册  登录
+登录前: 首页 注册 登录
 
-登陆后: 退出 发表文章
+登陆后: 首页 退出 发表文章
 
 #### 用户
 
